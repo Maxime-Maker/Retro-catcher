@@ -8,8 +8,13 @@ const { StatusCodes } = require('http-status-codes');
 // //! voir le join
 const getAllFavoris = async (req, res) => {
   const { rows: consoles } = await db.query(
-    'SELECT  FROM console favoris WHERE users_id=$1'[req.user.userID]
+    'SELECT * FROM consoles JOIN favoris USING(console_id) WHERE favoris.user_id=$1'[
+      req.user.userID
+    ]
   );
+  res.status(StatusCodes.OK).json({ consoles });
+  console.log('get');
+  res.status(StatusCodes.OK).json({ message: 'test ok' });
 };
 
 // delete
@@ -22,7 +27,7 @@ const deleteFavoris = async (req, res) => {
   }
   const {
     rows: [deleteFavoris],
-  } = await db.query('DELETE FROM favoris WHERE console_id=$1 AND userID=$2', [
+  } = await db.query('DELETE  FROM favoris WHERE console_id=$1 AND userID=$2', [
     id,
     userId,
   ]);
