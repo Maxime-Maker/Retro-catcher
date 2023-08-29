@@ -101,14 +101,14 @@ const validateIdParam = withValidationErrors(
     }
 
     const {
-      rows: [item],
-    } = await db.query('SELECT * FROM items WHERE item_id = $1', [id]);
+      rows: [console],
+    } = await db.query('SELECT * FROM consoles WHERE console_id = $1', [id]);
 
-    if (!item) {
+    if (!console) {
       throw new Error(`Pas d'article avec l'id ${id}`);
     }
 
-    const isOwner = req.user.userId === item.user_id;
+    const isOwner = req.user.userId === console.user_id;
     const isAdmin = req.user.role === 'admin';
 
     if (!isOwner && !isAdmin) {

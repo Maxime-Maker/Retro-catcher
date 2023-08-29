@@ -7,7 +7,11 @@ const {
   authorizePermissions,
 } = require('../middlewares/authenticationMiddleware.js');
 
-const { getAllConsole } = require('../controllers/consolesControllers.js');
+const {
+  getAllConsole,
+  addNewConsole,
+} = require('../controllers/consolesControllers.js');
 router.use(authenticateUser);
-router.route('/get').get(getAllConsole);
+router.route('/').get(getAllConsole);
+router.route('/add').post(addNewConsole);
 module.exports = router;

@@ -8,13 +8,21 @@ const { StatusCodes } = require('http-status-codes');
 // //! voir le join
 const getAllFavoris = async (req, res) => {
   const { rows: consoles } = await db.query(
-    'SELECT * FROM consoles JOIN favoris USING(console_id) WHERE favoris.user_id=$1'[
-      req.user.userID
-    ]
+    'SELECT * FROM consoles JOIN favoris USING(console_id) WHERE favoris.user_id=$1',
+    [req.user.userId]
   );
-  res.status(StatusCodes.OK).json({ consoles });
-  console.log('get');
-  res.status(StatusCodes.OK).json({ message: 'test ok' });
+  res.status(StatusCodes.OK).json({ count: consoles.length, consoles });
+};
+
+const addFavoris = async (req, res) => {
+  const { id } = req.body;
+  const {
+    rows: [favoris],
+  } = await db.query(
+    'INSERT INTO favoris (user_id,console_id) VALUES ($1,$2) RETURNING * ',
+    [req.user.userId, id]
+  );
+  res.status(StatusCodes.OK).json({ favoris });
 };
 
 // delete
@@ -26,20 +34,21 @@ const deleteFavoris = async (req, res) => {
     throw new BadRequestError('Identifiant invalide');
   }
   const {
-    rows: [deleteFavoris],
-  } = await db.query('DELETE  FROM favoris WHERE console_id=$1 AND userID=$2', [
-    id,
-    userId,
-  ]);
+    rows: [deletedFavoris],
+  } = await db.query(
+    'DELETE  FROM favoris WHERE console_id=$1 AND user_id=$2 RETURNING *',
+    [id, userId]
+  );
   if (!deletedFavoris) {
     throw new NotFoundError(`Pas de console avec l'id ${id}`);
   }
   res
     .status(StatusCodes.OK)
-    .json({ msg: 'Console supprimée', item: deleteFavoris });
+    .json({ msg: 'Console supprimée', item: deletedFavoris });
 };
 
 module.exports = {
   deleteFavoris,
   getAllFavoris,
+  addFavoris,
 };
