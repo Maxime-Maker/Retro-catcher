@@ -17,6 +17,7 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/favoris', favorisRouter);
 app.use('/api/v1/console', consoleRouter);
 app.use('/api/v1/user', userRouter);
+
 app.use(notFound);
 app.use(errorHandler);
 

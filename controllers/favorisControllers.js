@@ -5,12 +5,12 @@ const { StatusCodes } = require('http-status-codes');
 
 //Recupére la liste des favoris users
 
-// //! voir le join
 const getAllFavoris = async (req, res) => {
   const { rows: consoles } = await db.query(
     'SELECT * FROM consoles JOIN favoris USING(console_id) WHERE favoris.user_id=$1',
     [req.user.userId]
   );
+  console.log(consoles);
   res.status(StatusCodes.OK).json({ count: consoles.length, consoles });
 };
 

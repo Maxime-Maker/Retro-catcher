@@ -3,7 +3,6 @@ const router = Router();
 
 const {
   authenticateUser,
-  authorizePermissions,
 } = require('../middlewares/authenticationMiddleware.js');
 
 const { validateIdParam } = require('../middlewares/validationMiddleware.js');
