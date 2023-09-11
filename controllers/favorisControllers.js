@@ -10,12 +10,12 @@ const getAllFavoris = async (req, res) => {
     'SELECT * FROM consoles JOIN favoris USING(console_id) WHERE favoris.user_id=$1',
     [req.user.userId]
   );
-  console.log(consoles);
+
   res.status(StatusCodes.OK).json({ count: consoles.length, consoles });
 };
 
 const addFavoris = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   const {
     rows: [favoris],
   } = await db.query(

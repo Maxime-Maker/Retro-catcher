@@ -17,4 +17,12 @@ const getUser = async (req, res) => {
   delete user.password;
   res.status(StatusCodes.OK).json({ user });
 };
+
+// const UpdateUser=async(req,res)=>{
+//   const{
+//     rows:[user],
+
+//   }= await db.query('UPDATE users SET name='$1')
+// }
+
 module.exports = { getUserCount, getUser };

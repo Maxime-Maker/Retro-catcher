@@ -13,13 +13,13 @@ const getAllConsoleByBrandAndCategory = async (req, res) => {
     const brand = console.brand;
     const consoleType = console.type_console;
 
-    if (!acc[brand]) {
-      acc[brand] = {};
+    if (!acc[consoleType]) {
+      acc[consoleType] = {};
     }
-    if (!acc[brand][consoleType]) {
-      acc[brand][consoleType] = [];
+    if (!acc[consoleType][brand]) {
+      acc[consoleType][brand] = [];
     }
-    acc[brand][consoleType].push(console);
+    acc[consoleType][brand].push(console);
 
     return acc;
   }, {});

@@ -33,9 +33,9 @@ CREATE TABLE consoles(
 --! Creation table favoris
 
 CREATE TABLE favoris(
-    favoris_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
-    console_id INT REFERENCES consoles(console_id)
+    console_id INT REFERENCES consoles(console_id),
+    PRIMARY KEY (user_id,console_id)
 );
 
 
@@ -318,7 +318,7 @@ La PlayStation Portable Go ne comporte pas le lecteur UMD (Universal Media Disc)
 
 (' Game Boy','Nintendo','1989/04/21','Handheld','
  Malgré la sortie de consoles portables techniquement plus avancées, la Game Boy connaît un franc succès. Les modèles Game Boy et Game Boy Color totalisent 118,6 millions d exemplaires vendus à travers le monde. Dès sa sortie aux États-Unis, plus d un million d exemplaires sont vendus en quelques semaines. La production de la console portable s est achevée en 2003.
-','images/Sony/Nintendo/NHH - NHH - GB.png'),
+','images/Sony/Nintendo/NHH - GB.png'),
 
 (' Game Boy Pocket','Nintendo','1996/07/21','Handheld','
 Cette console diffère très peu de la Game Boy, sauf sa taille réduite de 30 %. L écran a été très légèrement agrandi et a perdu son aspect verdâtre. L autonomie est passée à 10 heures pour 2 piles LR03 (contre 4 LR6 pour la Game Boy originale). Les premiers modèles de Game Boy Pocket étaient dépourvus de voyant indiquant le niveau de batterie de la console.

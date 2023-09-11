@@ -13,7 +13,7 @@ const {
   deleteFavoris,
 } = require('../controllers/favorisControllers.js');
 router.use(authenticateUser);
-router.route('/').get(getAllFavoris).post(addFavoris);
-router.route('/:id').delete(validateIdParam, deleteFavoris);
+router.route('/').get(getAllFavoris);
+router.route('/:id').post(addFavoris).delete(validateIdParam, deleteFavoris);
 
 module.exports = router;
