@@ -8,7 +8,10 @@ const getAllConsole = async (_req, res) => {
 };
 
 const getAllConsoleByBrandAndCategory = async (req, res) => {
-  const { rows: consoles } = await db.query('SELECT * FROM consoles');
+  const { rows: consoles } = await db.query(
+    'SELECT * FROM consoles  WHERE console_id NOT IN (select console_id FROM favoris WHERE user_id=$1) ORDER BY type_console, brand,name_console',
+    [req.user.userId]
+  );
   const groupedConsoles = consoles.reduce((acc, console) => {
     const brand = console.brand;
     const consoleType = console.type_console;

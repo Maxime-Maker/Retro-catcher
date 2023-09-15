@@ -93,6 +93,10 @@ const validateUpdateItemInput = withValidationErrors(
   body('completed').trim().isBoolean().withMessage('Type invalide').escape()
 );
 
+const validateUpdateUser = withValidationErrors(
+  body('name').trim().isString().withMessage('Type invalide').escape()
+);
+
 // validateIdParam
 const validateIdParam = withValidationErrors(
   param('id').custom(async (id, { req }) => {
@@ -107,13 +111,6 @@ const validateIdParam = withValidationErrors(
     if (!console) {
       throw new Error(`Pas d'article avec l'id ${id}`);
     }
-
-    const isOwner = req.user.userId === console.user_id;
-    const isAdmin = req.user.role === 'admin';
-
-    if (!isOwner && !isAdmin) {
-      throw new Error('Accès non autorisé');
-    }
   })
 );
 
@@ -124,4 +121,5 @@ module.exports = {
   validateAddItemInput,
   validateUpdateItemInput,
   validateIdParam,
+  validateUpdateUser,
 };
