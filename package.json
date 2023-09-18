@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "commonjs",
   "scripts": {
-    "start": "npm run dev",
+    "start": "npm run ",
     "dev": "nodemon app.js"
   },
   "devDependencies": {
