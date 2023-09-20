@@ -2,6 +2,7 @@ require('dotenv').config();
 require('express-async-errors');
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 // middlewares
 const notFound = require('./middlewares/notFoundMiddleware.js');
@@ -13,6 +14,7 @@ const favorisRouter = require('./routes/favorisRoutes.js');
 const consoleRouter = require('./routes/consoleRoutes.js');
 const userRouter = require('./routes/userRoutes.js');
 app.use(express.json());
+app.use(cors());
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/favoris', favorisRouter);
